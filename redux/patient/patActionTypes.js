@@ -1,0 +1,1 @@
+export const PAT_LOGIN='PAT_LOGIN'
