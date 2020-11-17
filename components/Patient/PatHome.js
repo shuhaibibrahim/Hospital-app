@@ -2,7 +2,7 @@ import React from 'react'
 import { View, StyleSheet } from 'react-native';
 import colour from './colors';
 
-const Dochome=()=>{
+const Pathome=()=>{
 
     return (
         <View style={styles.container}></View>
@@ -16,4 +16,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Dochome;
+export default Pathome;
