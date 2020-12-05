@@ -1,20 +1,45 @@
 import React from 'react';
 import { StyleSheet, SafeAreaView, Platform, StatusBar } from 'react-native';
-import { BrowserRouter as Router, Switch, Redirect, Route } from 'react-router-dom'
-import { Provider } from 'react-redux'
-import store from './redux/store'
+import { NativeRouter, Route, Switch } from 'react-router-native'
+import { useSelector } from 'react-redux';
+
+import { createStackNavigator } from '@react-navigation/stack';
 
 import colour from './components/colors.js';
-import LoginPage from './components/Auth/LoginPage.js'
+import LoginPage from './components/Auth/LoginPage';
+import PatHome from './components/Patient/PatHome'
+import DocMain from './components/Doctor/DocMain.js';
+import DocHome from './components/Doctor/DocHome.js';
+
+const Stack = createStackNavigator();
 
 export default function Main() {
 
+  const loggedIn=useSelector(state => state.loggedIn);
+  const user=useSelector(state => state.user);
   return (
-    //   <Router>
-        <SafeAreaView style={styles.container}>
-            <LoginPage/>
-        </SafeAreaView>
-    //   </Router>
+      // <NativeRouter>
+      //       <Route path="/" exact render={
+      //         loggedIn==='DOC'
+      //           ?((props) => (<DocMain {...props} user={user} />)):(
+      //               loggedIn==='PAT'?((props) => (<PatHome {...props} user={user}/>))
+      //               :((props) => (<LoginPage {...props} />))
+      //           )
+      //       }/>
+      // </NativeRouter>
+      <Stack.Navigator
+        headerMode="none"
+        screenOptions={{
+          cardOverlayEnabled: true,
+          gestureEnabled: true,
+        }}
+      >
+          {loggedIn==='DOC'
+          ?(<Stack.Screen name="Home" component={DocMain}/>):
+          loggedIn==='PAT'?(<Stack.Screen name="Home" component={PatHome}/>):
+          (<Stack.Screen name="Login" component={LoginPage}/>) }
+      </Stack.Navigator>
+      
   );
 }
 

@@ -1,9 +1,13 @@
 import { DOC_LOGIN } from './doctor/docActionTypes.js'
 import { PAT_LOGIN } from './patient/patActionTypes.js'
 
+// const initialState={
+//     docLoggedIn: 'NO',
+//     patLoggedIn: 'NO'
+// }
 const initialState={
-    docLoggedIn: 'NO',
-    patLoggedIn: 'NO'
+    loggedIn: 'NULL',
+    user: 'NULL'
 }
 
 const loginReducer=(state=initialState, action)=>{
@@ -11,11 +15,13 @@ const loginReducer=(state=initialState, action)=>{
     switch(action.type){
         case DOC_LOGIN: return {
             ...state,
-            docLoggedIn:'YES'
+            loggedIn:'DOC',
+            user: action.user
         }
         case PAT_LOGIN: return {
             ...state,
-            patLoggedIn: 'YES'
+            loggedIn: 'PAT',
+            user: action.user
         }
         default: return state;
     }

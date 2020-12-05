@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, TextInput, StyleSheet, Image, TouchableNativeFeedback, KeyboardAvoidingView} from 'react-native';
+import { Text, View, TextInput, StyleSheet, Image, TouchableNativeFeedback, SafeAreaView, Platform, StatusBar, Button} from 'react-native';
 import SwitchSelector from "react-native-switch-selector";
 import { connect } from 'react-redux';
 
@@ -9,6 +9,8 @@ import { patLogIn } from '../../redux/patient/patientActions';
 import axios from 'axios'
 
 import colour from '../colors';
+import { TouchableOpacity } from 'react-native';
+import { cos } from 'react-native-reanimated';
 
 const LoginPage=(props)=>{
     const [value, setValue] = useState("doctor");
@@ -25,8 +27,7 @@ const LoginPage=(props)=>{
     // let signUp=<View/>;
     const [signUp, setsignUp]=useState(<View/>)
 
-    const authenticate=()=>
-    {
+    const authenticate=()=>{
         if(password==='' || userName==='')
         {
             setLoginMessage(<Text style={{position:'relative', top:-10, textAlign:'center', color:'blue'}}>Please fill both fields</Text>)
@@ -35,7 +36,7 @@ const LoginPage=(props)=>{
         if(value==='doctor')
         {
             axios.get(
-                'http://192.168.1.5:8080/doctor',
+                'http://192.168.1.8:8080/doctor',
                 {
                     params : {
                         username: userName,
@@ -53,10 +54,11 @@ const LoginPage=(props)=>{
                     }
                     else
                     {
-
-                        props.dispatch(docLogIn());
-                        // setLoginMessage(<Text style={{position:'relative', top:-10, textAlign:'center', color:'green'}}>Welcome {value}</Text>)
-                        
+                        props.dispatch({
+                            ...docLogIn(),
+                            user:res.data[0].username
+                            });
+                        // props.navigation.navigate('dochome') 
                     }
                 }
                 
@@ -66,7 +68,7 @@ const LoginPage=(props)=>{
         else if(value==='patient')
         {
             axios.get(
-                'http://192.168.1.5:8080/patient',
+                'http://192.168.1.8:8080/patient',
                 {
                     params : {
                         username: userName,
@@ -92,7 +94,11 @@ const LoginPage=(props)=>{
                     }
                     else
                     {
-                        props.dispatch(patLogIn());
+                        props.dispatch({
+                            ...patLogIn(),
+                            user:res.data[0].username
+                            });
+                        // props.navigation.navigate('pathome') 
                     }
                 }
                 
@@ -102,8 +108,7 @@ const LoginPage=(props)=>{
     }
 
     return (
-    
-    
+    <View style={styles.container1}>
     <View style={styles.container}> 
         
         <Image source={require('../../images/logo3.png')} style={styles.logo}/>
@@ -119,21 +124,18 @@ const LoginPage=(props)=>{
                 if(value==="patient")
                 {
                     setsignUp(
-                    <TouchableNativeFeedback>    
-                        <Text style={
-                            // {...styles.loginButton,
-                            
-                            // padding:'5%',
-                            // top: 200,
-                            // position:'absolute'
-                            // }
+                    <TouchableOpacity
+                        style={
                             {...styles.loginButton,
                                 padding:'5.5%',
                                 top: 200,
                                 position:'absolute'
                                 }
-                        }>sign up</Text>
-                    </TouchableNativeFeedback>)
+                        }
+                        activeOpacity={0.7}
+                    >    
+                        <Text style={{color:'white'}}>sign up</Text>
+                    </TouchableOpacity>)
                 }
                 else    
                 {
@@ -161,25 +163,27 @@ const LoginPage=(props)=>{
                     setLoginMessage(<View/>);
                     }
                 }/>
-            <TouchableNativeFeedback  onPress={authenticate}>
-                    <Text 
-                        style={
-                            {...styles.loginButton,
-                            top: 60,
-                            position:'relative'
-                            }
-                        }
-                    >login</Text>
-            </TouchableNativeFeedback>
+            <TouchableOpacity
+                style={
+                    {...styles.loginButton,
+                    top: 60,
+                    position:'relative'
+                    }
+                }
+                activeOpacity={0.7}
+                onPress={authenticate}
+            >
+                    <Text style={{color:'white'}}>login</Text>
+            </TouchableOpacity>
 
             {signUp}
 
             {loginMessage}
 
-            {console.log("doctor logged in : ",props.docLoggedIn)}
-            {console.log("patient logged in : ",props.patLoggedIn)}
+            {console.log("logged in : ",props.loggedIn)}
         </View>
 
+    </View>
     </View>
     );
 };
@@ -187,8 +191,7 @@ const LoginPage=(props)=>{
 //redux
 const mapStateToProps = state =>{
     return {
-        docLoggedIn: state.docLoggedIn,
-        patLoggedIn: state.patLoggedIn
+        loggedIn: state.loggedIn,
     }
 }
 
@@ -200,6 +203,14 @@ const mapDispatchToProps= dispatch =>{
 
 //style
 const styles = StyleSheet.create({
+
+    container1: {
+        flex: 1,
+        backgroundColor: colour.PRI_COL,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: Platform.OS === "android" ? StatusBar.currentHeight: 0,
+    },
 
     container: {
         // backgroundColor:'red',
@@ -232,9 +243,8 @@ const styles = StyleSheet.create({
 
     loginButton: {
         alignSelf:'center',
-        textAlign: "center",
+        alignItems: "center",
         backgroundColor: colour.LOGB_COL,
-        color: 'white',
         width: '40%',
         padding: '2%',
 
