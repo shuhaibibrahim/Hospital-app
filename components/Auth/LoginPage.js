@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Text, View, TextInput, StyleSheet, Image, TouchableNativeFeedback, SafeAreaView, Platform, StatusBar, Button} from 'react-native';
 import SwitchSelector from "react-native-switch-selector";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
 
 import { docLogIn } from '../../redux/doctor/doctorActions'
@@ -10,7 +11,6 @@ import axios from 'axios'
 
 import colour from '../colors';
 import { TouchableOpacity } from 'react-native';
-import { cos } from 'react-native-reanimated';
 
 const LoginPage=(props)=>{
     const [value, setValue] = useState("doctor");
@@ -36,7 +36,7 @@ const LoginPage=(props)=>{
         if(value==='doctor')
         {
             axios.get(
-                'http://192.168.1.8:8080/doctor',
+                'http://192.168.1.6:8080/doctor',
                 {
                     params : {
                         username: userName,
@@ -108,7 +108,12 @@ const LoginPage=(props)=>{
     }
 
     return (
-    <View style={styles.container1}>
+    <KeyboardAwareScrollView
+        style={{ backgroundColor: '#4c69a5' }}
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        contentContainerStyle={styles.container1}
+        scrollEnabled={true}
+    >
     <View style={styles.container}> 
         
         <Image source={require('../../images/logo3.png')} style={styles.logo}/>
@@ -184,7 +189,7 @@ const LoginPage=(props)=>{
         </View>
 
     </View>
-    </View>
+    </KeyboardAwareScrollView>
     );
 };
 

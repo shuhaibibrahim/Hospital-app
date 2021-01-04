@@ -4,6 +4,7 @@ import { NativeRouter, Route, Switch } from 'react-router-native'
 import { useSelector } from 'react-redux';
 
 import { createStackNavigator } from '@react-navigation/stack';
+// import FlashMessage from "react-native-flash-message";
 
 import colour from './components/colors.js';
 import LoginPage from './components/Auth/LoginPage';
@@ -27,6 +28,7 @@ export default function Main() {
       //           )
       //       }/>
       // </NativeRouter>
+      <>
       <Stack.Navigator
         headerMode="none"
         screenOptions={{
@@ -40,6 +42,8 @@ export default function Main() {
           (<Stack.Screen name="Login" component={LoginPage}/>) }
       </Stack.Navigator>
       
+      {/* <FlashMessage position="top"></FlashMessage> */}
+      </>
   );
 }
 
