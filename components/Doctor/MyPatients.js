@@ -21,7 +21,7 @@ const MyPatients=(props)=>{
     // const renderPatients=  () => {
     useEffect(()=>{
         axios.get(
-            'http://192.168.1.6:8080/doctor/mypatients',
+            'http://192.168.1.9:8080/doctor/mypatients',
             {
                 params : {
                     username: user,
@@ -105,6 +105,10 @@ const MyPatients=(props)=>{
     }
 
     return (
+        
+        
+        // <ScrollView fadingEdgeLength={5}>
+
         <KeyboardAwareScrollView
             style={{ backgroundColor: '#4c69a5' }}
             resetScrollToCoords={{ x: 0, y: 0 }}
@@ -123,15 +127,17 @@ const MyPatients=(props)=>{
                     style={styles.searchbar}
                     onChangeText={search=>searchFor(search)}
                 />
-                {/* <ScrollView style={{flex:1}} contentContainerStyle={styles.patientList}> */}
                     <View style={styles.patientList}>
                         <Text style={{fontSize:20, fontWeight:'900', position:'relative', bottom:10}}>
                             patients
                         </Text>
-                        {patientDisp}
+                        <ScrollView style={{width:'100%'}} contentContainerStyle={{alignItems:'center'}} fadingEdgeLength={10} showsVerticalScrollIndicator={false}>
+                                {patientDisp}
+                        </ScrollView>
                     </View>
-                {/* </ScrollView> */}
         </KeyboardAwareScrollView>
+        // </ScrollView>
+
     )
 }
 
@@ -168,8 +174,7 @@ const styles = StyleSheet.create({
     patientList: {
         width:'100%',
         alignItems:'center',
-        position: 'absolute',
-        top:150,
+        marginTop:130
     },
 
     searchbar: {
@@ -181,7 +186,7 @@ const styles = StyleSheet.create({
         justifyContent:'flex-start',
         paddingLeft:20,
         borderRadius: 50,
-
+        // marginBottom:50,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
