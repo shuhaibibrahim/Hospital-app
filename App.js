@@ -11,6 +11,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import DocHome from './components/Doctor/DocHome';
 import LoginPage from './components/Auth/LoginPage';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import Appointment from './components/Patient/Appointment';
+import Docprofile from './components/Patient/DocProfile';
 
 const Stack = createStackNavigator();
 
