@@ -92,18 +92,20 @@ const styles = StyleSheet.create({
   },
   buttons: {
     position: 'absolute',
-    top:600,
+    top:610,
     flexDirection: "row",
+
+    alignSelf: "center"
     
   },
   buttons1: {
-    position: 'absolute',
+
     justifyContent: 'center',
     alignItems:'center',
-    top:6,
-    left:40,
+
     width: 250,
     height: 50,
+    marginRight: 10,
     borderRadius: 30 ,
     backgroundColor: 'white',
 
@@ -111,11 +113,11 @@ const styles = StyleSheet.create({
     
   },
   buttons2: {
-  position: 'absolute',
+
   justifyContent: 'center',
   alignItems:'center',
-  top:6,
-  left:310,
+
+ marginLeft: 10,
   width: 50,
   height: 50,
   borderRadius: 30 ,
@@ -133,6 +135,7 @@ const styles = StyleSheet.create({
     
   },
   box: {
+
     backgroundColor: colour.BOX_COL,
     borderRadius: 10,
     width:320,
