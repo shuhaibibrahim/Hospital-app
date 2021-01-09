@@ -24,6 +24,7 @@ import {
 } from "react-native-gesture-handler";
 import { color } from "react-native-reanimated";
 import { KeyboardAvoidingView } from "react-native";
+import colour from "../colors";
 
 
 const DismissKeyboard = ({ children }) => (
@@ -142,7 +143,7 @@ export default function App() {
 
             <View style={styles.button}>
               <TouchableHighlight>
-                <Text style={{ alignSelf: "center", color: "#6BE0D4" }}>
+                <Text style={{ alignSelf: "center", color: colour.GREEN_COL }}>
                   Set An Appointment
                 </Text>
               </TouchableHighlight>
@@ -161,7 +162,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     height: "100%",
-    backgroundColor: "#ECF0F3",
+    backgroundColor: colour.BACKGROUND_COL,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight + 5 : 0,
     //    alignItems: 'center',
     //    justifyContent: 'center',
@@ -171,7 +172,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   box: {
-    backgroundColor: "white",
+    backgroundColor: colour.BOX_COL,
     borderRadius: 10,
     width: 320,
     height: 580,
@@ -184,7 +185,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     top: 140,
     alignSelf: "center",
-    backgroundColor: "#ECF0F3",
+    backgroundColor: colour.BACKGROUND_COL,
     height: 35,
     width: 280,
   },

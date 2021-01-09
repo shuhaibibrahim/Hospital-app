@@ -4,6 +4,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
+import { colors } from 'react-native-elements';
+import colour from '../colors';
 
 var name="shijin"
 export default function App() {
@@ -65,13 +67,13 @@ export default function App() {
       <View style={styles.buttons}>
       <View style={styles.buttons1}>
           <TouchableNativeFeedback>
-            <Text style={{color: '#6BE0D4',fontWeight: 'bold'}}>PRESCRIPTION</Text>
+            <Text style={{color: colour.GREEN_COL,fontWeight: 'bold'}}>PRESCRIPTION</Text>
           </TouchableNativeFeedback>
         </View>
         
         <View style={styles.buttons2}>
           <TouchableNativeFeedback>
-            <Text style={{color: '#6BE0D4',fontWeight: 'bold'}}>+</Text>
+            <Text style={{color: colour.GREEN_COL,fontWeight: 'bold'}}>+</Text>
           </TouchableNativeFeedback>
         </View>
       </View>
@@ -83,7 +85,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ECF0F3',
+    backgroundColor: colour.BACKGROUND_COL,
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight+5 : 0
 //    alignItems: 'center',
 //    justifyContent: 'center',
@@ -99,8 +101,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems:'center',
     top:6,
-    left:10,
-    width: 300,
+    left:40,
+    width: 250,
     height: 50,
     borderRadius: 30 ,
     backgroundColor: 'white',
@@ -113,7 +115,7 @@ const styles = StyleSheet.create({
   justifyContent: 'center',
   alignItems:'center',
   top:6,
-  left:330,
+  left:310,
   width: 50,
   height: 50,
   borderRadius: 30 ,
@@ -131,7 +133,7 @@ const styles = StyleSheet.create({
     
   },
   box: {
-    backgroundColor: 'white',
+    backgroundColor: colour.BOX_COL,
     borderRadius: 10,
     width:320,
     height: 400,
