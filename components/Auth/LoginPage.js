@@ -36,7 +36,7 @@ const LoginPage=(props)=>{
         if(value==='doctor')
         {
             axios.get(
-                'http://192.168.1.9:8080/doctor',
+                'https://asdserver.herokuapp.com/doctor',
                 {
                     params : {
                         username: userName,
@@ -68,7 +68,7 @@ const LoginPage=(props)=>{
         else if(value==='patient')
         {
             axios.get(
-                'http://192.168.1.8:8080/patient',
+                'https://asdserver.herokuapp.com/patient',
                 {
                     params : {
                         username: userName,

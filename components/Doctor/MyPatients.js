@@ -21,7 +21,7 @@ const MyPatients=(props)=>{
     // const renderPatients=  () => {
     useEffect(()=>{
         axios.get(
-            'http://192.168.1.9:8080/doctor/mypatients',
+            'https://asdserver.herokuapp.com/doctor/mypatients',
             {
                 params : {
                     username: user,
