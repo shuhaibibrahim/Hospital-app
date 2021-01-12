@@ -14,6 +14,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Appointment from './components/Patient/Appointment';
 import Docprofile from './components/Patient/DocProfile';
 import Docquora from './components/Doctor/Docquora'
+import Todo from './components/Patient/Todo'
 
 const Stack = createStackNavigator();
 

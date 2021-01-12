@@ -8,5 +8,7 @@
    GREEN_COL: "#6BE0D4",
    GRAY_COL: "gray",
    BACKGROUND_COL: "#ECF0F3",
+   TEAL_GREEN: "#128C7E",
+   TEAL_DARK_GREEN: "#075E54",
  };
 export default colour;
