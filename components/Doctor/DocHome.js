@@ -6,6 +6,8 @@ import colour from '../colors';
 
 const Dochome=(props)=>{
 
+    console.log("user : ",props);
+
     return (
         <View style={styles.container}>
 

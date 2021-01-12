@@ -8,7 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import colour from './components/colors.js';
 import LoginPage from './components/Auth/LoginPage';
-import PatHome from './components/Patient/PatHome'
+import PatMain from './components/Patient/PatMain'
 import DocMain from './components/Doctor/DocMain.js';
 import DocHome from './components/Doctor/DocHome.js';
 
@@ -38,7 +38,7 @@ export default function Main() {
       >
           {loggedIn==='DOC'
           ?(<Stack.Screen name="Home" component={DocMain}/>):
-          loggedIn==='PAT'?(<Stack.Screen name="Home" component={PatHome}/>):
+          loggedIn==='PAT'?(<Stack.Screen name="Home" component={PatMain}/>):
           (<Stack.Screen name="Login" component={LoginPage}/>) }
       </Stack.Navigator>
       
