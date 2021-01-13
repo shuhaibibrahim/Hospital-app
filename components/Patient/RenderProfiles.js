@@ -4,23 +4,25 @@ import React,{useEffect, useState} from 'react'
 import { View, StyleSheet, Text, TextInput, ScrollView, Dimensions } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { TouchableOpacity } from 'react-native';
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { SearchBar } from 'react-native-elements';
 import axios from 'axios'
 
 import colour from '../colors';
-import { KeyboardAvoidingView } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-
+import { docPick } from '../../redux/patient/patientActions';
 
 const windowHeight=Dimensions.get('window').height;
 const windowWidth=Dimensions.get('window').width;
 
 const RenderProfiles=(props)=>{
 
-    const user=useSelector(state=>state.user);
+    const user=useSelector(state=>state.login.user);
+    const dateSelected=useSelector(state=>state.patient.dateSelected)
+
+    const dispatch=useDispatch();
     
     const [profiles,setProfiles]=useState([])
+    const [index,setIndex]=useState(0)
 
     const newDate=new Date(props.route.params.date)
     console.log(newDate)
@@ -48,10 +50,6 @@ const RenderProfiles=(props)=>{
                 {
                     // console.log(res.data)
                     const data=res.data;
-                    // const newData=data.map(p=>
-                    // (<View key={p.username} style={styles.div}>
-                    //     <Text>Name : {p.name}</Text>
-                    // </View>))
 
                     const newData=data.map(d=>{
                         return { name: d.name,
@@ -61,34 +59,36 @@ const RenderProfiles=(props)=>{
 
                     console.log(newData);
                     setProfiles(newData);
-                    // setPatientSearch(newData);
-                    // console.log(profiles);
-                    
-                    // setPatientDisp(
-                    //     newData.map(p=>
-                    //     (<View key={p.username} style={styles.div}>
-                    //         <Text>
-                    //             Name : {p.name} {'\n'}
-                    //             DOB    : {p.dob.slice(0,10)}
-                    //         </Text>
-                    //     </View>))
-                    // )
                 }
-                // return (<View style={styles.div}><Text>hii</Text></View>);
             }
             
         }).catch(err=>{console.log(err)})
     },[]);
 
     const renderProfiles=({item,index})=>{
-        const deptDiv=<View style={styles.profileView} key={item.dept}>
-                        <Text>{item.name}</Text>
-                    </View>
+        const deptDiv=
+                    <TouchableOpacity 
+                        style={styles.search}
+                        activeOpacity={0.92}
+                        onPress={()=>{
+                            dispatch({
+                                ...docPick(),
+                                docUser: item.username
+                            })
+                            props.navigation.navigate('docprofile')
+                        }}
+                    >
+                        <View style={styles.profileView} key={item.dept}>
+                            <Text>{item.name}</Text>
+                        </View>
+                    </TouchableOpacity>
         return deptDiv;
     }
 
     return (
         <View style={styles.container}>
+            <Text style={{position:'absolute', top:windowHeight-windowHeight*.9}}>Doctors available on {dateSelected.format("MM/DD/YYYY")}</Text>
+            <Text style={{position:'absolute', top:windowHeight-windowHeight*.85}}>Department : {props.route.params.dept}</Text>
             <Carousel
                 layout={"stack"}
                 layoutCardOffset={7}
@@ -98,7 +98,20 @@ const RenderProfiles=(props)=>{
                 renderItem={renderProfiles}
                 containerCustomStyle={styles.profiles}
                 contentContainerStyle={styles.profileView}
-                // onSnapToItem = { index => setIndex(index) }
+                onSnapToItem = { index => setIndex(index) }
+            />
+
+            <Pagination
+              dotsLength={profiles.length}
+              activeDotIndex={index}
+              containerStyle={{ position:'absolute',top:windowHeight*.8 }}
+              dotStyle={{
+                  width: 10,
+                  height: 10,
+                  borderRadius: 5,
+              }}
+              inactiveDotOpacity={0.4}
+              inactiveDotScale={0.6}
             />
         </View>
     )

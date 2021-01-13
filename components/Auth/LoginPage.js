@@ -196,7 +196,7 @@ const LoginPage=(props)=>{
 //redux
 const mapStateToProps = state =>{
     return {
-        loggedIn: state.loggedIn,
+        loggedIn: state.login.loggedIn,
     }
 }
 

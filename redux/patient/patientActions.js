@@ -1,7 +1,17 @@
-import { PAT_LOGIN } from './patActionTypes'
+import { PAT_LOGIN, DATE_PICK, DOC_PICK } from './patActionTypes'
 
-export const patLogIn=()=>{
+exports.patLogIn=()=>{
     return {
         type: PAT_LOGIN,
+    }
+}
+exports.datePick=()=>{
+    return {
+        type: DATE_PICK
+    }
+}
+exports.docPick=()=>{
+    return {
+        type: DOC_PICK
     }
 }

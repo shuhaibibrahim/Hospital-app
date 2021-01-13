@@ -1,1 +1,7 @@
-export const PAT_LOGIN='PAT_LOGIN'
+const PAT_LOGIN='PAT_LOGIN'
+const DATE_PICK='DATE_PICK'
+const DOC_PICK='DOC_PICK'
+
+exports.PAT_LOGIN=PAT_LOGIN
+exports.DATE_PICK=DATE_PICK
+exports.DOC_PICK=DOC_PICK

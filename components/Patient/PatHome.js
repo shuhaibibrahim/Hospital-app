@@ -1,40 +1,37 @@
 import React, { useState, useRef } from 'react'
 import { View, StyleSheet, Text, ScrollView, Dimensions, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
-import { useSelector } from 'react-redux';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
+import { useSelector, useDispatch } from 'react-redux';
 import DropDownPicker from 'react-native-dropdown-picker';
 import CalendarPicker from 'react-native-calendar-picker';
-import DatePicker from 'react-native-date-picker';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import colour from '../colors';
-
+import { datePick } from '../../redux/patient/patientActions';
+import Todo from './Todo'
 
 const windowHeight=Dimensions.get('window').height;
 const windowWidth=Dimensions.get('window').width;
 
 const Pathome=(props)=>{
 
-    const [deptIndex, setIndex] = useState(0);
     const [dept, setDept] = useState(null);
     const [date, setDate] = useState(new Date())
     const [datePlaceHolder,setdatePlaceHolder]=useState('Pick a date')
     // const [calendar,setCalender] = useState(<View/>)
     const [calToggle,setCalToggle] = useState(false)
 
-    const user=useSelector(state=>state.user)
+    const user=useSelector(state=>state.login.user)
+    const dispatch=useDispatch()
     const dropDownRef = useRef();
 
-    const renderDept=({item,index})=>{
-        const deptDiv=<View style={styles.deptView} key={item.dept}>
-                        <Text>{item.dept}</Text>
-                    </View>
-        return deptDiv;
-    }
-
     const renderCalender=()=>{
-        const cal=calToggle==true?<View style={styles.calendar}>
+        const cal=calToggle==true?
+            <View style={{flex:1, justifyContent:'flex-end'}}>
+                <View style={{backgroundColor:'black',flex:2, justifyContent:'center',alignItems:'center'}} opacity={0.5}>
+                    <Text style={{color:'white',fontSize:40,fontWeight:'bold'}}>Pick a date</Text>
+                </View>
+                <View style={styles.calendar}>
                     <CalendarPicker
                     startFromMonday={true}
                     minDate={new Date()}
@@ -46,6 +43,10 @@ const Pathome=(props)=>{
                         setDate(date)
                         setCalToggle(false)
                         setdatePlaceHolder(date.format("MM/DD/YYYY"))
+                        dispatch({
+                                ...datePick(),
+                                date:date
+                            });
                     }}
                     customDatesStyles={[
                         {containerStyle:{
@@ -53,7 +54,8 @@ const Pathome=(props)=>{
                         }}
                     ]}
                     />
-                </View>:<View/>
+                </View>
+            </View>:<View/>
         
         return cal
     }
@@ -65,38 +67,9 @@ const Pathome=(props)=>{
                 dropDownRef.current.close()
                 setCalToggle(false)
             }}
-            // onPress={()=>dropDownRef.current.close()}
         >     
         <View style={styles.container}>
-            {/* <Text style={{position:'absolute',top:windowHeight-(windowHeight*.88)}}>Departments</Text>
-
-                <Carousel
-                  layout={"default"}+
-                  data={depts}
-                  sliderWidth={windowWidth}
-                  itemWidth={windowWidth-windowWidth*.2}
-                  renderItem={renderDept}
-                  containerCustomStyle={styles.depts}
-                  contentContainerStyle={styles.deptView}
-                  onSnapToItem = { index => setIndex(index) }
-                />
-                <Pagination
-                    dotsLength={depts.length}
-                    activeDotIndex={deptIndex}
-                    containerStyle={styles.dots}
-                    dotStyle={{
-                        width: 10,
-                        height: 10,
-                        borderRadius: 5,
-                        // marginHorizontal: 8,
-                        // backgroundColor: 'rgba(255, 255, 255, 0.92)'
-                    }}
-                    // inactiveDotStyle={{
-                    //     // Define styles for inactive dots here
-                    // }}
-                    inactiveDotOpacity={0.4}
-                    inactiveDotScale={0.6}
-                /> */}
+        
             <DropDownPicker
                 items={[
                     {label: 'PEDIATRICIAN', value: 'PEDIATRICIAN', icon: () => <Icon name="stethoscope" size={18} color="blue" />},
@@ -138,16 +111,22 @@ const Pathome=(props)=>{
                 activeOpacity={0.7}
                 onPress={()=>{
                     console.log(date)
-                    props.navigation.navigate('doctors',{
-                        date: date.toString(),
-                        dept: dept,
-                    })
+                    if(dept!=null && datePlaceHolder!='Pick a date'){
+                            props.navigation.navigate('doctors',{
+                                date: date.toString(),
+                                dept: dept,
+                            })
+                    }
                 }}
             >
                     <Text>Find doctors</Text>
             </TouchableOpacity>
 
             {renderCalender()}
+
+            {/* <View style={{position:'absolute',backgroundColor:colour.SEC_COL, bottom:0,width:'100%',height:windowHeight*.5 }}> */}
+                <Todo/>
+            {/* </View> */}
             {/* <CalendarPicker
                 startFromMonday={true}
                 minDate={new Date()}
@@ -169,8 +148,8 @@ const styles = StyleSheet.create({
 
     calendar:{
         backgroundColor:colour.SEC_COL,
-        position:'absolute',
-        top:windowHeight-windowHeight*.5,
+        // position:'absolute',
+        // bottom:0,
         
         shadowColor: "#000",
         shadowOffset: {
@@ -198,7 +177,7 @@ const styles = StyleSheet.create({
     datePickerStyle: {
         flexDirection:'row',
         position:'absolute',
-        top:windowHeight-windowHeight*.75,
+        top:windowHeight*.15,
         width: '90%',
         height:40,
         marginTop: 20,
@@ -212,26 +191,7 @@ const styles = StyleSheet.create({
         height: 40,
         width:'90%',
         position:'absolute',
-        top:windowHeight-windowHeight*.8
-    },
-
-    depts:{
-        position:'absolute',
-        top:windowHeight-(windowHeight*.8),
-        height:'60%',
-    },
-
-    deptView:{
-        height:'100%',
-        backgroundColor:colour.SEC_COL,
-        alignItems:'center',
-        justifyContent:'center',
-        
-    },
-    dots:{
-        position:'absolute',
-        top:windowHeight-(windowHeight*.15),
-        width:'20%'
+        top:windowHeight*.1
     },
 
     search:{
@@ -240,7 +200,7 @@ const styles = StyleSheet.create({
         height:40,
         borderRadius:50,
         position:'absolute',
-        top:windowHeight-windowHeight*.6,
+        top:windowHeight*.3,
         justifyContent:'center',
         alignItems:'center',
 

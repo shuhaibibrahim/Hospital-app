@@ -13,7 +13,7 @@ export default class Todo extends React.Component {
         <Text style={styles.notetext}>{this.props.val.note}</Text>
 
         <TouchableOpacity onPress={this.props.deleteMethod} style={styles.notedelete}>
-        <MaterialIcons name="delete" size={24} color="red" />
+          <MaterialIcons name="delete" size={24} color="red" />
         </TouchableOpacity>
 
       </View>

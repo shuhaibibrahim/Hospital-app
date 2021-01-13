@@ -15,8 +15,8 @@ const Stack = createStackNavigator();
 
 export default function DocMain(props) {
 
-  const loggedIn=useSelector(state => state.loggedIn);
-  const user=useSelector(state => state.user);
+  const loggedIn=useSelector(state => state.login.loggedIn);
+  const user=useSelector(state => state.login.user);
   return (
     // <NavigationContainer>
       <Stack.Navigator >

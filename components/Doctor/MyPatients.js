@@ -11,7 +11,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 const MyPatients=(props)=>{
 
-    const user=useSelector(state=>state.user);
+    const user=useSelector(state=>state.login.user);
     
     // const [patients,setPatients] = useState(<View/>);
     const [patients,setPatients] = useState([]);

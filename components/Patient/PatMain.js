@@ -9,6 +9,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import PatHome from './PatHome';
 import RenderProfiles from './RenderProfiles'
+import DocProfile from './DocProfile'
 import colour from '../colors';
 
 const Stack = createStackNavigator();
@@ -29,6 +30,11 @@ export default function DocMain(props) {
           name="doctors" 
           component={RenderProfiles}
           options={{title:'Doctors'}} 
+        />
+        <Stack.Screen 
+          name="docprofile" 
+          component={DocProfile} 
+          options={{ title: 'Profile' }}
         />
       </Stack.Navigator>
     // </NavigationContainer>
