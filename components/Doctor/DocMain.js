@@ -10,6 +10,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import DocHome from './DocHome';
 import colour from '../colors';
 import MyPatients from './MyPatients';
+import Appoinments from './MyAppoinment';
 
 const Stack = createStackNavigator();
 
@@ -29,6 +30,11 @@ export default function DocMain(props) {
           name="mypatients" 
           component={MyPatients}
           options={{title:'Patients'}} 
+        />
+        <Stack.Screen 
+          name="appoinments" 
+          component={Appoinments}
+          options={{title:'Appoinments'}} 
         />
       </Stack.Navigator>
     // </NavigationContainer>

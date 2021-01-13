@@ -15,7 +15,7 @@ const Dochome=(props)=>{
                 <Text > Patients </Text>
             </TouchableOpacity>
       
-            <TouchableOpacity activeOpacity={0.7} style={styles.div} onPress={()=>{console.log('heloo')}}>
+            <TouchableOpacity activeOpacity={0.7} style={styles.div} onPress={()=>{props.navigation.navigate('appoinments')}}>
                 <Text> Appoinments </Text>
             </TouchableOpacity>
 
