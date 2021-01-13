@@ -1,9 +1,12 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Animated, StyleSheet, Text, View, StatusBar, Dimensions, TextInput, TouchableOpacity,TouchableNativeFeedback} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useDispatch, useSelector } from 'react-redux'
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import axios from 'axios'
+
 import colour from '../colors';
 import Note from "./Note";
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const windowHeight=Dimensions.get('window').height;
 const windowWidth=Dimensions.get('window').width;
@@ -17,12 +20,52 @@ const Todo=()=>{
   //     noteText: '',
   //   }
   // }
+  const user=useSelector(state=>state.login.user)
   const [noteArray,setnoteArray]=useState([])
   const [noteText,setnoteText]=useState('')
   const [reminderToggle, setreminderToggle]=useState(false)
+  const [noteKey,setnoteKey]=useState(0)
 
   const heightAnim = useRef(new Animated.Value(windowHeight*.05)).current;
-  // const heightAnim=windowHeight*.05
+
+  useEffect(()=>{
+    axios.get(
+        'https://asdserver.herokuapp.com/patient/myreminders',
+        {
+            params : {
+                username: user
+            }
+        }
+    ).then(res=>{
+        if(res.status===200)
+        {
+            if(res.data.length===0)
+            {
+                console.log("No reminders");
+                // console.log(loginMessage);
+            }
+            else
+            {
+                // console.log(res.data)
+                const data=res.data;
+
+                const newData=data.map(d=>{
+                    return { date:  new Date(d.date).getFullYear() +"/"+ (new Date(d.date).getMonth() + 1) + "/" + new Date(d.date).getDate(),
+                             note: d.text,
+                             key: d.key
+                          }
+                })
+
+                const maxKey=newData.reduce((max, d) => d.key > max ? d.key : max, newData[0].key)
+                setnoteKey(maxKey+1)
+
+                console.log(newData);
+                setnoteArray(newData);
+            }
+        }
+        
+    }).catch(err=>{console.log(err)})
+  },[]);
 
   const changeHeight = () => {
     // Will change fadeAnim value to 1 in 5 seconds
@@ -38,17 +81,60 @@ const Todo=()=>{
     var newArray=noteArray
     if (noteText) {
       var d = new Date();
-      newArray.push({'date': d.getFullYear() +"/"+ (d.getMonth() + 1) + "/" + d.getDate(), 'note': noteText
-    });
+
+      newArray.push({
+        'date': d.getFullYear() +"/"+ (d.getMonth() + 1) + "/" + d.getDate(), 
+        'note': noteText,
+        'key':noteKey+1
+      });
+
+      axios.get(
+          'https://asdserver.herokuapp.com/patient/reminders/add',
+          {
+              params : {
+                  username: user,
+                  text:noteText,
+                  date:d,
+                  key: noteKey+1
+              }
+          }
+      ).then(res=>{
+          if(res.status===200)
+          {
+              console.log("insert success ")
+          }
+          
+      }).catch(err=>{console.log(err)})
+
       setnoteArray([...newArray])
       setnoteText('');
+      setnoteKey(noteKey+1)
+      console.log("key : ",noteKey)
+
     }
   }
 
   const deleteNote=(key)=>{
     var newArray=noteArray
+
+    axios.get(
+      'https://asdserver.herokuapp.com/patient/reminders/delete',
+      {
+          params : {
+              key: newArray[key].key
+          }
+      }
+    ).then(res=>{
+        if(res.status===200)
+        {
+            console.log("delete success")
+        }
+        
+    }).catch(err=>{console.log(err)})
+
     newArray.splice(key,1)
     setnoteArray([...newArray])
+
   }
 
   let notes = noteArray.map((val,key) => {
@@ -155,7 +241,6 @@ const Todo=()=>{
         <View style={styles.footer}>
           <TextInput style={styles.textinput} 
           onChangeText={(noteText) =>{
-            console.log(noteText)
             setnoteText(noteText)}}
           value={noteText}
           placeholder="Type your reminder"
