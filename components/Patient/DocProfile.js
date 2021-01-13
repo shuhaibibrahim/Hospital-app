@@ -1,6 +1,6 @@
 
 import React,{useEffect, useState, useRef} from 'react'
-import { StyleSheet, Text, View, StatusBar, Image, TouchableWithoutFeedback,TouchableNativeFeedback, Linking, Platform, Animated, Dimensions } from 'react-native';
+import { Alert, StyleSheet, Text, View, StatusBar, Image, TouchableWithoutFeedback,TouchableNativeFeedback, Linking, Platform, Animated, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
@@ -102,30 +102,65 @@ const DocProfile=(props)=>{
           const count=parseInt(res.data[0].count)
           const token=count===0?count+1:parseInt(res.data[0].max)+1
           settokenNumber(token)
+
+          axios.get(
+            'https://asdserver.herokuapp.com/patient/appoinment',
+            {
+                params : {
+                    docUser:docUser,
+                    patUser:user,
+                    date:dateSelected,
+                    token:token
+                }
+            }
+          ).then(res=>{
+            if(res.status===200)
+            {
+                    console.log(res.data)
+            }
+            
+          }).catch(err=>{console.log(err)})
+
       }
       
     }).catch(err=>{console.log(err)})
+
+    fadeIn()
   }
 
-  const takeAppoinment=()=>{
-    axios.get(
-      'https://asdserver.herokuapp.com/patient/appoinment',
-      {
-          params : {
-              docUser:docUser,
-              patUser:user,
-              date:dateSelected,
-              token:tokenNumber
-          }
-      }
-    ).then(res=>{
-      if(res.status===200)
-      {
-              console.log(res.data)
-      }
+  // const takeAppoinment=()=>{
+  //   axios.get(
+  //     'https://asdserver.herokuapp.com/patient/appoinment',
+  //     {
+  //         params : {
+  //             docUser:docUser,
+  //             patUser:user,
+  //             date:dateSelected,
+  //             token:tokenNumber
+  //         }
+  //     }
+  //   ).then(res=>{
+  //     if(res.status===200)
+  //     {
+  //             console.log(res.data)
+  //     }
       
-    }).catch(err=>{console.log(err)})
-  }
+  //   }).catch(err=>{console.log(err)})
+  // }
+  const createTwoButtonAlert = () =>
+    Alert.alert(
+      "Confirm Appoinment",
+      "press confirm to get your token",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "confirm", onPress: () => {generateTokenNumber()} }
+      ],
+      { cancelable: false }
+    );
 
   return (
 
@@ -182,11 +217,7 @@ const DocProfile=(props)=>{
   
   
         <View style={styles.buttons}>
-        <TouchableNativeFeedback onPress={()=>{
-            generateTokenNumber()
-            takeAppoinment()
-            fadeIn()
-        }}>
+        <TouchableNativeFeedback onPress={createTwoButtonAlert}>
           <View style={styles.buttons1}>
               <Text style={{color: colour.GREEN_COL,fontWeight: 'bold'}}>Set An Appointment</Text>
           </View>
