@@ -5,7 +5,7 @@ import { DATE_PICK, DOC_PICK } from './patient/patActionTypes.js'
 //     patLoggedIn: 'NO'
 // }
 const initialState={
-    dateSelected: 'NULL',
+    dateSelected: new Date(),
     docUser: 'NULL'
 }
 
