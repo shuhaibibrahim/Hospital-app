@@ -13,7 +13,7 @@ import LoginPage from './components/Auth/LoginPage';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Appointment from './components/Patient/Appointment';
 import Docprofile from './components/Patient/DocProfile';
-import Docquora from './components/Doctor/Docquora'
+import Docquora from './components/Docquora/Docquora'
 import Todo from './components/Patient/Todo'
 
 const Stack = createStackNavigator();
