@@ -160,6 +160,7 @@ const Answers=(props)=>{
               style={styles.ainput}
               placeholder="Type your answer"
               onChangeText={ans=>setAns(ans)}
+              value={ans}
           />
 
           <View style={styles.send}>

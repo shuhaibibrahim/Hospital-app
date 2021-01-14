@@ -191,12 +191,13 @@ const Docquora=(props)=>{
               style={styles.qinput}
               placeholder="Ask anything.."
               onChangeText={que=>setQue(que)}
+              value={que}
           />
 
           <View style={styles.send}>
-            <TouchableNativeFeedback onPress={()=>{postQuestion()}}>
+            <TouchableOpacity onPress={()=>{postQuestion()}}>
               <FontAwesome name="send" size={20} color="#6BE0D4" />
-            </TouchableNativeFeedback>
+            </TouchableOpacity>
           </View>
         </View>}
 
