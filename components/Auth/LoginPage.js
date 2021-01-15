@@ -56,7 +56,8 @@ const LoginPage=(props)=>{
                     {
                         props.dispatch({
                             ...docLogIn(),
-                            user:res.data[0].username
+                            user:res.data[0].username,
+                            name:res.data[0].name
                             });
                         // props.navigation.navigate('dochome') 
                     }
@@ -96,7 +97,8 @@ const LoginPage=(props)=>{
                     {
                         props.dispatch({
                             ...patLogIn(),
-                            user:res.data[0].username
+                            user:res.data[0].username,
+                            name:res.data[0].name
                             });
                         // props.navigation.navigate('pathome') 
                     }

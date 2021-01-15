@@ -1,2 +1,5 @@
-export const DOC_LOGIN='DOC_LOGIN'
-export const PAT_LOGIN='PAT_LOGIN'
+const DOC_LOGIN='DOC_LOGIN'
+const DOC_LOGOUT='DOC_LOGOUT'
+
+exports.DOC_LOGIN=DOC_LOGIN
+exports.DOC_LOGOUT=DOC_LOGOUT

@@ -1,4 +1,4 @@
-import { PAT_LOGIN, DATE_PICK, DOC_PICK } from './patActionTypes'
+import { PAT_LOGIN, DATE_PICK, DOC_PICK, PAT_LOGOUT } from './patActionTypes'
 
 exports.patLogIn=()=>{
     return {
@@ -13,5 +13,10 @@ exports.datePick=()=>{
 exports.docPick=()=>{
     return {
         type: DOC_PICK
+    }
+}
+exports.patLogOut=()=>{
+    return {
+        type: PAT_LOGOUT,
     }
 }

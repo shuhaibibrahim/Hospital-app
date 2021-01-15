@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import DocHome from './DocHome';
 import colour from '../colors';
@@ -13,16 +14,14 @@ import MyPatients from './MyPatients';
 import Appoinments from './MyAppoinment';
 import Docquora from '../Docquora/Docquora';
 import Answers from '../Docquora/Answers';
+import DDrawerContent from './DDrawerContent'
 
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
-export default function DocMain(props) {
-
-  const loggedIn=useSelector(state => state.login.loggedIn);
-  const user=useSelector(state => state.login.user);
+const MainStackNavigator=()=>{
   return (
-    // <NavigationContainer>
-      <Stack.Navigator >
+    <Stack.Navigator >
         <Stack.Screen 
           name="dochome" 
           component={DocHome} 
@@ -48,7 +47,19 @@ export default function DocMain(props) {
           component={Answers}
           options={{title:'Answers'}} 
         />
-      </Stack.Navigator>
+    </Stack.Navigator>
+  )
+}
+
+export default function DocMain(props) {
+
+  const loggedIn=useSelector(state => state.login.loggedIn);
+  const user=useSelector(state => state.login.user);
+  return (
+    // <NavigationContainer>
+    <Drawer.Navigator drawerContent={props => <DDrawerContent {...props} />} initialRouteName="mainhome" >
+      <Drawer.Screen name="mainhome" component={MainStackNavigator} />
+    </Drawer.Navigator>
     // </NavigationContainer>
 
   );
