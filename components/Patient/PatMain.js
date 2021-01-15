@@ -13,6 +13,7 @@ import RenderProfiles from './RenderProfiles'
 import DocProfile from './DocProfile'
 import Docquora from '../Docquora/Docquora'
 import Answers from '../Docquora/Answers'
+import MyAppoinments from './MyAppoinments'
 import colour from '../colors';
 import PDrawerContent from './PDrawerContent'
 
@@ -46,6 +47,11 @@ const MainStackNavigator=()=>{
           name="docquoraAns" 
           component={Answers} 
           options={{ title: 'Answers' }}
+        />
+        <Stack.Screen 
+          name="myappoinments" 
+          component={MyAppoinments} 
+          options={{ title: 'Appoinments' }}
         />
       </Stack.Navigator>
   )

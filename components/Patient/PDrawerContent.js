@@ -76,6 +76,17 @@ export default function PDrawerContent(props) {
                                             }
                                     }
                         />
+                        <DrawerItem 
+                            icon={({color, size}) => (
+                                <Icon 
+                                name="home-outline" 
+                                color={color}
+                                size={size}
+                                />
+                            )}
+                            label="Appoinments"
+                            onPress={() => {props.navigation.navigate('myappoinments')}}
+                        />
                     </Drawer.Section>
                     
                     <Drawer.Section style={styles.signOut}>
