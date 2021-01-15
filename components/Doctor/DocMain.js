@@ -7,6 +7,7 @@ import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { Entypo } from '@expo/vector-icons';
 
 import DocHome from './DocHome';
 import colour from '../colors';
@@ -25,7 +26,12 @@ const MainStackNavigator=()=>{
         <Stack.Screen 
           name="dochome" 
           component={DocHome} 
-          options={{ title: 'Home' }}
+          options={{ title: 'Home',
+          headerLeft: () => (
+            <Entypo name="menu" size={24} color="black" style={{paddingLeft: 10}}/>
+
+          )
+         }}
         />
         <Stack.Screen 
           name="mypatients" 

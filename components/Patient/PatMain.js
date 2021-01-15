@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { NativeRouter, Route, Switch } from 'react-router-native'
 import { useSelector } from 'react-redux';
+import { Entypo } from '@expo/vector-icons';
 
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
@@ -26,7 +27,12 @@ const MainStackNavigator=()=>{
         <Stack.Screen 
           name="pathome" 
           component={PatHome} 
-          options={{ title: 'Home' }}
+          options={{ title: 'Home',
+          headerLeft: () => (
+            <Entypo name="menu" size={24} color="black" style={{paddingLeft: 10}}/>
+
+          )
+         }}
         />
         <Stack.Screen 
           name="doctors" 

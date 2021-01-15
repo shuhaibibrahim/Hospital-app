@@ -15,6 +15,7 @@ import Appointment from './components/Patient/Appointment';
 import Docprofile from './components/Patient/DocProfile';
 import Docquora from './components/Docquora/Docquora'
 import Todo from './components/Patient/Todo'
+import SignUp from './components/Patient/SignUp'
 
 const Stack = createStackNavigator();
 

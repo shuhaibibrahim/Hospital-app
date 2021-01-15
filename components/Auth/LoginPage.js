@@ -118,7 +118,7 @@ const LoginPage=(props)=>{
     >
     <View style={styles.container}> 
         
-        <Image source={require('../../images/logo3.png')} style={styles.logo}/>
+        <Image source={require('../../images/logo1.png')} style={styles.logo}/>
         <SwitchSelector
             options={options}
             initial={0}
@@ -271,9 +271,7 @@ const styles = StyleSheet.create({
         width: 100,
         height:100,
         alignSelf:'center',
-        borderColor:'black',
-        borderWidth:2,
-        borderRadius:50
+
     }
 });
 

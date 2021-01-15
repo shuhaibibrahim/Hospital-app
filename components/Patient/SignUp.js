@@ -65,18 +65,11 @@ export default function SignUp()
           >
 
       <View style={styles.container}>
-        <Text style={styles.endText}>Sign Up Here</Text>
-        <Image source={require('../../images/logo.png')} style={styles.logo}/>
+        <Image source={require('../../images/logo1.png')} style={styles.logo}/>
         <View>
              <TextInput label="Name" style={styles.inputBox} placeholder="Name" />
               <TextInput style={styles.inputBox} placeholder="Username" />
-              <TextInput 
-              style={styles.inputBox} placeholder="Email" />
-              <TextInput style={styles.inputBox} placeholder="Phone Number" keyboardType= {'numeric'}/>
-              <TextInput 
-               //onChangeText={(e)=> {this.checkAdrs(e)}}
-              style={styles.inputBox} placeholder="Password" secureTextEntry={true} />
-              <TextInput style={styles.inputBox} placeholder="Confirm Password" secureTextEntry={true} />
+              <TextInput style={styles.inputBox} placeholder="Password" secureTextEntry={true} />
               </View>
                 <TouchableOpacity>
                 <Text style={styles.Button}>SignUp</Text>
@@ -115,16 +108,19 @@ export default function SignUp()
         alignSelf:'center',
         width: 100,
         height: 100,
+        top: -50,
       },
 
       inputBox: {
          backgroundColor: colour.SEC_COL,
         alignSelf: 'center',
         padding: 3,
-        paddingLeft:50,
+        paddingLeft:30,
+        top: -20,
         width: '100%',
         borderRadius: 50,
         marginTop: 10,
+        marginBottom: 10,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -142,7 +138,7 @@ export default function SignUp()
        backgroundColor: colour.LOGB_COL,
        width: '40%',
        padding: '2%',
-       marginTop:10,
+       marginTop:20,
        shadowColor: "#000",
        shadowOffset: {
            width: 0,
