@@ -28,7 +28,7 @@ const Pathome=(props)=>{
     const renderCalender=()=>{
         const cal=calToggle==true?
             <View style={{flex:1,width:windowWidth}}>
-                <View style={{backgroundColor:'black',flex:2, justifyContent:'center',alignItems:'center'}} opacity={0.5}>
+                <View style={{backgroundColor:'black',flex:1, justifyContent:'center',alignItems:'center'}} opacity={0.5}>
                     <Text style={{color:'white',fontSize:40,fontWeight:'bold'}}>Pick a date</Text>
                 </View>
                 <View style={styles.calendar}>
@@ -149,7 +149,9 @@ const styles = StyleSheet.create({
     calendar:{
         backgroundColor:colour.SEC_COL,
         position:'absolute',
-        bottom:windowWidth*.1,
+        bottom:0,
+        zIndex:10,
+        marginBottom:0,
         borderBottomWidth:1,
         borderColor:'black',
         
