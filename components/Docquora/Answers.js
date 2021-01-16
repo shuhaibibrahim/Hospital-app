@@ -18,7 +18,11 @@ const DismissKeyboard = ({ children }) => (
   );
 
 
+var ansFlag=true;
+
 const Answers=(props)=>{
+
+  ansFlag=props.route.params.ansFlag
 
   console.log(props.route.params)
   const [ans,setAns]=useState('')
@@ -150,7 +154,7 @@ const Answers=(props)=>{
             </Text>
         </View>
 
-        <View style={styles.answers}>
+        <View style={{...styles.answers, marginBottom:ansFlag?windowHeight*.12:0}}>
           <ScrollView style={{width:'100%'}} contentContainerStyle={{alignItems:'center'}} fadingEdgeLength={10} showsVerticalScrollIndicator={false}>
             {answersDisp}
           </ScrollView>
@@ -194,7 +198,7 @@ const styles = StyleSheet.create({
     alignItems:'center',
     marginTop:windowHeight*.08,
     width:'100%',
-    marginBottom:windowHeight*.12,
+
   },
 
   container: {

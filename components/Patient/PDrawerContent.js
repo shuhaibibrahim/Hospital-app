@@ -79,7 +79,7 @@ export default function PDrawerContent(props) {
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
-                                name="home-outline" 
+                                name="clipboard-text-outline" 
                                 color={color}
                                 size={size}
                                 />
