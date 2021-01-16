@@ -174,7 +174,7 @@ const DocProfile=(props)=>{
         <View style={styles.profilePicture}>
             <Image 
               style={{width: 60 , height:60,borderRadius: 50}}
-              source={require('../../images/images.jpg')}
+              source={require('../../images/images1.jpg')}
     
               />
         </View>
