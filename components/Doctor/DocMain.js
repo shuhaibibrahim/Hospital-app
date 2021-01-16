@@ -7,6 +7,7 @@ import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import Icon from 'react-native-vector-icons/Ionicons'; 
 import { Entypo } from '@expo/vector-icons';
 
 import DocHome from './DocHome';
@@ -20,7 +21,7 @@ import DDrawerContent from './DDrawerContent'
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-const MainStackNavigator=()=>{
+const MainStackNavigator=(props)=>{
   return (
     <Stack.Navigator >
         <Stack.Screen 
@@ -28,8 +29,12 @@ const MainStackNavigator=()=>{
           component={DocHome} 
           options={{ title: 'Home',
           headerLeft: () => (
-            <Entypo name="menu" size={24} color="black" style={{paddingLeft: 10}}/>
-
+            <Icon  
+              style={{ paddingLeft: 10 }}  
+              onPress={() => props.navigation.openDrawer()}  
+              name="md-menu"  
+              size={30}  
+            />  
           )
          }}
         />

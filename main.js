@@ -11,6 +11,7 @@ import LoginPage from './components/Auth/LoginPage';
 import PatMain from './components/Patient/PatMain'
 import DocMain from './components/Doctor/DocMain.js';
 import DocHome from './components/Doctor/DocHome.js';
+import SignUp from './components/Patient/SignUp'
 
 const Stack = createStackNavigator();
 
@@ -40,6 +41,7 @@ export default function Main() {
           ?(<Stack.Screen name="Home" component={DocMain}/>):
           loggedIn==='PAT'?(<Stack.Screen name="Home" component={PatMain}/>):
           (<Stack.Screen name="Login" component={LoginPage}/>) }
+          <Stack.Screen name="signup" component={SignUp}/>
       </Stack.Navigator>
       
       {/* <FlashMessage position="top"></FlashMessage> */}

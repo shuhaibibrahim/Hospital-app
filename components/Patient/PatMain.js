@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { NativeRouter, Route, Switch } from 'react-router-native'
 import { useSelector } from 'react-redux';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { Entypo } from '@expo/vector-icons';
 
 import 'react-native-gesture-handler';
@@ -21,7 +22,7 @@ import PDrawerContent from './PDrawerContent'
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-const MainStackNavigator=()=>{
+const MainStackNavigator=(props)=>{
   return (
     <Stack.Navigator >
         <Stack.Screen 
@@ -29,8 +30,12 @@ const MainStackNavigator=()=>{
           component={PatHome} 
           options={{ title: 'Home',
           headerLeft: () => (
-            <Entypo name="menu" size={24} color="black" style={{paddingLeft: 10}}/>
-
+            <Icon  
+              style={{ paddingLeft: 10 }}  
+              onPress={() => props.navigation.openDrawer()}  
+              name="md-menu"  
+              size={30}  
+            />  
           )
          }}
         />

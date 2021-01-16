@@ -140,6 +140,7 @@ const LoginPage=(props)=>{
                                 }
                         }
                         activeOpacity={0.7}
+                        onPress={()=>{props.navigation.navigate('signup')}}
                     >    
                         <Text style={{color:'white'}}>sign up</Text>
                     </TouchableOpacity>)
