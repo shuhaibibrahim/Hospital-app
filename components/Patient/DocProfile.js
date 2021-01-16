@@ -117,6 +117,21 @@ const DocProfile=(props)=>{
             if(res.status===200)
             {
                     console.log(res.data)
+                    axios.get(
+                      'https://asdserver.herokuapp.com/patient/updatePatDoc',
+                      {
+                          params : {
+                              docUser:docUser,
+                              patUser:user,
+                          }
+                      }
+                    ).then(res=>{
+                      if(res.status===200)
+                      {
+                              console.log(res.data)
+                      }
+                      
+                    }).catch(err=>{console.log(err)})
             }
             
           }).catch(err=>{console.log(err)})
